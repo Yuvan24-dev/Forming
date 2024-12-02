@@ -1,0 +1,121 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General input field styling */
+.inputfeild {
+  border: none;
+  border-bottom: 1px solid #a8a6a6;
+  background-color: transparent;
+  height: 66px;
+  width: 100%;
+  color: #635f5f;
+  outline: none;
+  background-color: rgb(135, 135, 206) !important;
+}
+
+/* Small input fields */
+.inputsmall {
+  width: 45%;
+  float: left;
+}
+
+.inputsmall1 {
+  width: 45%;
+  float: right;
+}
+
+/* Padding for form sections */
+.forPad {
+  padding: 100px;
+}
+
+.forPad1 {
+  padding: 90px;
+}
+
+/* For bottom padding */
+.forbot {
+  padding: 5px;
+}
+
+/* Dropdown styling */
+.foropton {
+  background-color: transparent;
+}
+
+/* Alert message styling */
+.alertr {
+  color: red;
+  margin: 0px;
+  display: inline;
+  z-index: 1;
+  position: absolute;
+}
+
+.alertrdx {
+  color: red;
+  margin: 0px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Error message styling */
+.error-messageo {
+  display: none;
+  color: red;
+}
+
+/* Input fields focus */
+input:focus {
+  background-color: rgb(135, 135, 206);
+}
+
+/* Color for input fields in .colorin */
+.colorin input {
+  background-color: rgb(135, 135, 206) !important;
+}
+
+/* Placeholder color for white inputs */
+.placeholder-white::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+}
+
+/* Remove number input spinner */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Button styling */
+.forbu {
+  width: 15%;
+  margin: 0% auto;
+}
+
+/* Adjust color for inputs inside colorin class */
+.colorin input::placeholder {
+  color: rgb(252, 249, 249);
+}
+
+.colorin .inputfeild {
+  color: rgb(252, 249, 249);
+}
+.colorin{
+  background-color: rgb(31, 183, 244);
+}
+.error-message {
+  color: red;
+  font-size: 0.875rem; 
+  margin-top: 5px;
+}
+.rounded-pill{
+  width: 130px;
+  margin: 0%auto;
+}
