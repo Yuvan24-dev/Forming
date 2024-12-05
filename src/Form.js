@@ -5,15 +5,17 @@ import './Form.css';
 import { useForm } from 'react-hook-form';
 
 const MyForm = () => {
-  // Using react-hook-form
-  const { register, handleSubmit, formState: { errors }, getValues } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm();
 
-  // Handle form submission
   const handleRegistration = (data) => {
     console.log(data);
   };
 
-  // Error handling is managed by React Hook Form
   const handleError = (errors) => {
     console.log(errors);
   };
@@ -28,11 +30,14 @@ const MyForm = () => {
 
             {/* Title Dropdown */}
             <Form.Group className="mb-3">
-              <Form.Control as="select" {...register('title', { required: 'Title is required' })}>
+              <Form.Control
+                as="select"
+                {...register('title', { required: 'Title is required' })}
+              >
                 <option value="">Title</option>
-                <option value="option1">Businessman</option>
-                <option value="option2">Reporter</option>
-                <option value="option3">Secretary</option>
+                <option value="Businessman">Businessman</option>
+                <option value="Reporter">Reporter</option>
+                <option value="Secretary">Secretary</option>
               </Form.Control>
               {errors.title && <div className="error-message">{errors.title.message}</div>}
             </Form.Group>
@@ -41,7 +46,13 @@ const MyForm = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
-                {...register('firstName', { required: 'First name is required' })}
+                {...register('firstName', {
+                  required: 'First name is required',
+                  pattern: {
+                    value: /^[A-Za-z]+$/,
+                    message: 'First name can only contain letters',
+                  },
+                })}
                 placeholder="First Name"
               />
               {errors.firstName && <div className="error-message">{errors.firstName.message}</div>}
@@ -51,7 +62,13 @@ const MyForm = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
-                {...register('lastName', { required: 'Last name is required' })}
+                {...register('lastName', {
+                  required: 'Last name is required',
+                  pattern: {
+                    value: /^[A-Za-z]+$/,
+                    message: 'Last name can only contain letters',
+                  },
+                })}
                 placeholder="Last Name"
               />
               {errors.lastName && <div className="error-message">{errors.lastName.message}</div>}
@@ -63,7 +80,10 @@ const MyForm = () => {
                 type="password"
                 {...register('password', {
                   required: 'Password is required',
-                  minLength: { value: 8, message: 'Password must have at least 8 characters' },
+                  pattern: {
+                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message: 'Password must include uppercase, lowercase, number, and special character',
+                  },
                 })}
                 placeholder="Password"
               />
@@ -80,25 +100,36 @@ const MyForm = () => {
                 })}
                 placeholder="Confirm Password"
               />
-              {errors.confirmPassword && <div className="error-message">{errors.confirmPassword.message}</div>}
+              {errors.confirmPassword && (
+                <div className="error-message">{errors.confirmPassword.message}</div>
+              )}
             </Form.Group>
 
             {/* Company */}
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
-                {...register('company')}
+                {...register('company', {
+                  pattern: {
+                    value: /^[A-Za-z0-9\s,.'-]{2,}$/,
+                    message: 'Company name must be valid',
+                  },
+                })}
                 placeholder="Company"
               />
+              {errors.company && <div className="error-message">{errors.company.message}</div>}
             </Form.Group>
 
             {/* Position Dropdown */}
             <Form.Group className="mb-3">
-              <Form.Control as="select" {...register('position', { required: 'Position is required' })}>
+              <Form.Control
+                as="select"
+                {...register('position', { required: 'Position is required' })}
+              >
                 <option value="">Position</option>
-                <option value="option1">Director</option>
-                <option value="option2">Manager</option>
-                <option value="option3">Employee</option>
+                <option value="Director">Director</option>
+                <option value="Manager">Manager</option>
+                <option value="Employee">Employee</option>
               </Form.Control>
               {errors.position && <div className="error-message">{errors.position.message}</div>}
             </Form.Group>
@@ -117,23 +148,39 @@ const MyForm = () => {
           </div>
 
           {/* Contact Details */}
-          <div className="col-sm-6 col-12 forPad colorin" style={{ backgroundColor: 'rgb(135, 135, 206)' }}>
+          <div
+            className="col-sm-6 col-12 forPad colorin"
+            style={{ backgroundColor: 'rgb(135, 135, 206)' }}
+          >
             <h4>Contact Details</h4>
 
             {/* Address */}
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
-                {...register('address')}
+                {...register('address', {
+                  required: 'Address is required',
+                  pattern: {
+                    value: /^[A-Za-z0-9\s,.'-]{5,}$/,
+                    message: 'Address must be at least 5 characters',
+                  },
+                })}
                 placeholder="D.No + Street"
               />
+              {errors.address && <div className="error-message">{errors.address.message}</div>}
             </Form.Group>
 
             {/* Zip Code */}
             <Form.Group className="mb-3">
               <Form.Control
                 type="number"
-                {...register('zipCode', { required: 'Zip code is required' })}
+                {...register('zipCode', {
+                  required: 'Zip code is required',
+                  pattern: {
+                    value: /^\d{5}$/,
+                    message: 'Zip code must be 5 digits',
+                  },
+                })}
                 placeholder="Zip code"
               />
               {errors.zipCode && <div className="error-message">{errors.zipCode.message}</div>}
@@ -159,14 +206,24 @@ const MyForm = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="file"
-                {...register('file')}
+                {...register('file', {
+                  required: 'File is required',
+                  validate: {
+                    isPdf: (files) =>
+                      files[0]?.type === 'application/pdf' || 'Only PDF files are allowed',
+                  },
+                })}
                 accept=".pdf"
               />
+              {errors.file && <div className="error-message">{errors.file.message}</div>}
             </Form.Group>
 
             {/* Country Dropdown */}
             <Form.Group className="mb-3">
-              <Form.Control as="select" {...register('country', { required: 'Country is required' })}>
+              <Form.Control
+                as="select"
+                {...register('country', { required: 'Country is required' })}
+              >
                 <option value="">Country</option>
                 <option value="Vietnam">Vietnam</option>
                 <option value="Malaysia">Malaysia</option>
